@@ -1,0 +1,79 @@
+version: '3'
+services:
+  dependence_visual:
+    image: "archguard/dependence_visual:local"
+    container_name: dependence_visual
+    depends_on:
+      - dependence-api
+      - code-analysis-addition
+      - code-scanner
+      - git-commit-analysis
+    ports:
+      - "10080:80"
+      - "10443:443"
+    networks:
+      - dependence_network
+
+  
+  code-analysis-addition:
+    image: "archguard/backend_addition"
+    container_name: code-analysis-addition
+    depends_on:
+        - dependence_mysql
+    ports:
+        - "18080:8080"
+    environment:
+      app_env: local
+    networks:
+      - dependence_network
+
+  dependence-api:
+    image: "archguard/dependence_api"
+    container_name: dependence-api
+    depends_on:
+      - dependence_mysql
+    ports:
+      - "18081:9000"
+    environment:
+      app_env: local
+    networks:
+      - dependence_network
+
+  code-scanner:
+    image: "archguard/code_scanner"
+    container_name: code-scanner
+    depends_on:
+        - dependence_mysql
+    ports:
+        - "18082:8080"
+    environment:
+      app_env: local
+    networks:
+      - dependence_network
+
+  git-commit-analysis:
+    image: "archguard/git-commit-analysis"
+    container_name: git-commit-analysis
+    depends_on:
+        - dependence_mysql
+    ports:
+        - "18083:8080"
+    environment:
+      app_env: local
+    networks:
+      - dependence_network
+
+  dependence_mysql:
+    image: "mysql"
+    container_name: dependence_mysql
+    ports:
+      - "13306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: prisma
+      MYSQL_DATABASE: default@default
+    networks:
+      - dependence_network
+
+networks:
+  dependence_network:
+
