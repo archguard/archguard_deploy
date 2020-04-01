@@ -19,6 +19,8 @@ services:
     image: "archguard/backend_addition"
     container_name: code-analysis-addition
     depends_on:
+      code-scanner:
+        condition: service_healthy
       dependence_mysql:
         condition: service_healthy
     ports:
@@ -32,6 +34,8 @@ services:
     image: "archguard/dependence_api"
     container_name: dependence-api
     depends_on:
+      code-scanner:
+        condition: service_healthy
       dependence_mysql:
         condition: service_healthy
     ports:
@@ -42,7 +46,7 @@ services:
       - dependence_network
 
   code-scanner:
-    image: "archguard/code_scanner"
+    image: "code-scanner"
     container_name: code-scanner
     depends_on:
       dependence_mysql:
@@ -51,6 +55,10 @@ services:
         - "18082:8080"
     environment:
       app_env: local
+    healthcheck:
+      test: curl -f http://localhost:8080/hello || exit 1
+      timeout: 10s
+      retries: 5 
     networks:
       - dependence_network
 
@@ -58,6 +66,8 @@ services:
     image: "archguard/git-commit-analysis"
     container_name: git-commit-analysis
     depends_on:
+      code-scanner:
+        condition: service_healthy
       dependence_mysql:
         condition: service_healthy
     ports:
