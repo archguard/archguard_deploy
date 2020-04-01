@@ -73,6 +73,8 @@ services:
       MYSQL_DATABASE: default@default
     networks:
       - dependence_network
+    volumes:
+      - "~/archguard_db_data:/var/lib/mysql"
 
 networks:
   dependence_network:
