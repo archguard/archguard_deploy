@@ -1,5 +1,9 @@
 # Archguard local deploy script
 
+## Volume
+数据库目录映射在用户目录下，`~/archguard_db_data`
+
+## Command
 - Start all containers
 `./deploy.sh up`
 

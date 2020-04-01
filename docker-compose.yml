@@ -1,4 +1,4 @@
-version: '3'
+version: '2.1'
 services:
   dependence_visual:
     image: "archguard/dependence_visual:local"
@@ -19,7 +19,8 @@ services:
     image: "archguard/backend_addition"
     container_name: code-analysis-addition
     depends_on:
-        - dependence_mysql
+      dependence_mysql:
+        condition: service_healthy
     ports:
         - "18080:8080"
     environment:
@@ -31,7 +32,8 @@ services:
     image: "archguard/dependence_api"
     container_name: dependence-api
     depends_on:
-      - dependence_mysql
+      dependence_mysql:
+        condition: service_healthy
     ports:
       - "18081:9000"
     environment:
@@ -43,7 +45,8 @@ services:
     image: "archguard/code_scanner"
     container_name: code-scanner
     depends_on:
-        - dependence_mysql
+      dependence_mysql:
+        condition: service_healthy
     ports:
         - "18082:8080"
     environment:
@@ -55,7 +58,8 @@ services:
     image: "archguard/git-commit-analysis"
     container_name: git-commit-analysis
     depends_on:
-        - dependence_mysql
+      dependence_mysql:
+        condition: service_healthy
     ports:
         - "18083:8080"
     environment:
@@ -75,6 +79,10 @@ services:
       - dependence_network
     volumes:
       - "~/archguard_db_data:/var/lib/mysql"
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 5
 
 networks:
   dependence_network:

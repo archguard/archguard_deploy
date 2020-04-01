@@ -12,5 +12,5 @@ elif [ "$op" == 'rm' ]
 then
     docker-compose rm
 else   
-    echo 'Not support operation $op !!'
+    echo "Not support operation $op !!"
 fi
