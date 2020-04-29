@@ -7,7 +7,6 @@ services:
       - dependence-api
       - code-analysis-addition
       - code-scanner
-      - git-commit-analysis
     ports:
       - "10080:80"
       - "10443:443"
@@ -63,21 +62,6 @@ services:
       test: curl -f http://localhost:8080/hello || exit 1
       timeout: 10s
       retries: 5 
-    networks:
-      - dependence_network
-
-  git-commit-analysis:
-    image: "archguard/git-commit-analysis"
-    container_name: git-commit-analysis
-    depends_on:
-      code-scanner:
-        condition: service_healthy
-      dependence_mysql:
-        condition: service_healthy
-    ports:
-        - "18083:8080"
-    environment:
-      app_env: local
     networks:
       - dependence_network
 
