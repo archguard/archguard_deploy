@@ -11,6 +11,9 @@ then
 elif [ "$op" == 'rm' ]
 then
     docker-compose rm
+elif [ "$op" == 'pull' ]
+then
+    docker-compose pull
 else   
     echo "Not support operation $op !!"
 fi
