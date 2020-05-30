@@ -74,6 +74,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: prisma
       MYSQL_DATABASE: default@default
+      TZ: Asia/Shanghai
     networks:
       - dependence_network
     volumes:
