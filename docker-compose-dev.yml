@@ -8,8 +8,8 @@ services:
       - code-analysis-addition
       - code-scanner
     ports:
-      - "10081:80"
-      - "11443:443"
+      - "10080:80"
+      - "10443:443"
     networks:
       - dependence_network
 
