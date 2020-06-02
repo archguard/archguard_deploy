@@ -67,7 +67,7 @@ services:
 
   dependence_mysql:
     image: "mysql"
-    container_name: dependence_mysql
+    container_name: dependence-mysql
     command: --default-authentication-plugin=mysql_native_password
     ports:
       - "13306:3306"
