@@ -1,7 +1,7 @@
 version: '2.1'
 services:
   dependence_visual:
-    image: "archguard/dependence_visual:local"
+    image: "archguard/dependence_visual"
     container_name: dependence_visual
     depends_on:
       - dependence-api
