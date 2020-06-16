@@ -13,5 +13,8 @@
 - Remove all containers
 `./deploy.sh rm`
 
-- Pulls/Update all images
+- Pull/Update all images
 `./deploy.sh pull` 
+
+- Update all images and restart all changed containers
+`./deploy.sh upgrade`

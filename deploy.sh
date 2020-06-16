@@ -14,6 +14,9 @@ then
 elif [ "$op" == 'pull' ]
 then
     docker-compose pull
+elif [ "$op" == 'upgrade' ]
+then
+    docker-compose pull && docker-compose up -d
 else   
     echo "Not support operation $op !!"
 fi
