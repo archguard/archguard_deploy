@@ -65,6 +65,19 @@ services:
     networks:
       - dependence_network
 
+  code-analysis-module:
+    image: "archguard/analysis_module"
+    container_name: code-analysis-module
+    depends_on:
+      dependence_mysql:
+        condition: service_healthy
+    ports:
+      - "18083:8080"
+    environment:
+      app_env: local
+    networks:
+      - dependence_network
+
   dependence_mysql:
     image: "mysql"
     container_name: dependence-mysql
