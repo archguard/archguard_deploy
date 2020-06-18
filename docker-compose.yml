@@ -7,6 +7,7 @@ services:
       - dependence-api
       - code-analysis-addition
       - code-scanner
+      - code-analysis-module
     ports:
       - "10080:80"
       - "10443:443"
