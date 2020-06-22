@@ -79,6 +79,17 @@ services:
     networks:
       - dependence_network
 
+  flyway-server:
+    image: "archguard/flyway_server"
+    container_name: flyway-server
+    depends_on:
+      dependence_mysql:
+        condition: service_healthy
+    environment:
+      app_env: local
+    networks:
+      - dependence_network
+
   dependence_mysql:
     image: "mysql"
     container_name: dependence-mysql
