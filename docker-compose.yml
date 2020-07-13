@@ -70,6 +70,8 @@ services:
     image: "archguard/analysis_module"
     container_name: code-analysis-module
     depends_on:
+      code-scanner:
+        condition: service_healthy
       dependence_mysql:
         condition: service_healthy
     ports:
