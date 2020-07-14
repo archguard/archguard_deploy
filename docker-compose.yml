@@ -13,7 +13,6 @@ services:
       - "10443:443"
     networks:
       - dependence_network
-
   
   code-analysis-addition:
     image: "archguard/backend_addition"
@@ -29,6 +28,7 @@ services:
       app_env: local
     networks:
       - dependence_network
+    restart: on-failure:10
 
   dependence-api:
     image: "archguard/dependence_api"
@@ -44,6 +44,7 @@ services:
       app_env: local
     networks:
       - dependence_network
+    restart: on-failure:10
 
   code-scanner:
     image: "archguard/code_scanner"
@@ -53,6 +54,8 @@ services:
     depends_on:
       dependence_mysql:
         condition: service_healthy
+      flyway-server:
+        condition: service_started
     ports:
         - "18082:8080"
     environment:
@@ -65,6 +68,7 @@ services:
       retries: 5 
     networks:
       - dependence_network
+    restart: on-failure:10
 
   code-analysis-module:
     image: "archguard/analysis_module"
@@ -80,6 +84,7 @@ services:
       app_env: local
     networks:
       - dependence_network
+    restart: on-failure:10
 
   flyway-server:
     image: "archguard/flyway_server"
