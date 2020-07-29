@@ -97,6 +97,22 @@ services:
     networks:
       - dependence_network
 
+  eureka-server:
+    image: "archguard/eureka_server"
+    container_name: eureka-server
+    environment:
+      app_env: local
+    networks:
+      - dependence_network
+
+  document-app:
+    image: "archguard/document_app"
+    container_name: document-app
+    environment:
+      app_env: local
+    networks:
+      - dependence_network
+
   dependence_mysql:
     image: "mysql"
     container_name: dependence-mysql
