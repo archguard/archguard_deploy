@@ -17,4 +17,6 @@
 `./deploy.sh pull` 
 
 - Update all images and restart all changed containers
-`./deploy.sh upgrade`
+`./deploy.sh upgrade`  
+
+对于Dev环境，切换成`./deploy-dev.sh`  

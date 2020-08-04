@@ -4,7 +4,6 @@ services:
     image: "archguard/dependence_visual"
     container_name: dependence_visual
     depends_on:
-      - dependence-api
       - code-analysis-addition
       - code-scanner
       - code-analysis-module
