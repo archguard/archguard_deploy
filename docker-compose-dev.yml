@@ -1,0 +1,61 @@
+version: '2.1'
+services:
+  dependence_visual:
+    image: "archguard/dependence_visual"
+    container_name: dependence_visual
+    depends_on:
+      - dependence-api
+      - code-analysis-module
+    ports:
+      - "10080:80"
+      - "10443:443"
+    networks:
+      - dependence_network
+
+  code-analysis-module:
+    image: "archguard/analysis_module"
+    container_name: code-analysis-module
+    depends_on:
+      code-scanner:
+        condition: service_healthy
+      dependence_mysql:
+        condition: service_healthy
+    ports:
+      - "18083:8080"
+    environment:
+      app_env: dev
+    networks:
+      - dependence_network
+    restart: on-failure:10
+
+  flyway-server:
+    image: "archguard/flyway_server"
+    container_name: flyway-server
+    depends_on:
+      dependence_mysql:
+        condition: service_healthy
+    networks:
+      - dependence_network
+
+  dependence_mysql:
+    image: "mysql"
+    container_name: dependence-mysql
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "13306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: prisma
+      MYSQL_DATABASE: default@default
+      TZ: Asia/Shanghai
+    networks:
+      - dependence_network
+    volumes:
+      - "~/archguard_db_data:/var/lib/mysql"
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 5
+
+networks:
+  dependence_network_boc:
+

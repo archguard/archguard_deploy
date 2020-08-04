@@ -30,22 +30,6 @@ services:
       - dependence_network
     restart: on-failure:10
 
-  dependence-api:
-    image: "archguard/dependence_api"
-    container_name: dependence-api
-    depends_on:
-      code-scanner:
-        condition: service_healthy
-      dependence_mysql:
-        condition: service_healthy
-    ports:
-      - "18081:9000"
-    environment:
-      app_env: local
-    networks:
-      - dependence_network
-    restart: on-failure:10
-
   code-scanner:
     image: "archguard/code_scanner"
     container_name: code-scanner
@@ -92,8 +76,6 @@ services:
     depends_on:
       dependence_mysql:
         condition: service_healthy
-    environment:
-      app_env: local
     networks:
       - dependence_network
 
