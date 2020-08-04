@@ -9,14 +9,12 @@ services:
       - "10080:80"
       - "10443:443"
     networks:
-      - dependence_network
+      - dependence_network_boc
 
   code-analysis-module:
     image: "archguard/analysis_module"
     container_name: code-analysis-module
     depends_on:
-      code-scanner:
-        condition: service_healthy
       dependence_mysql:
         condition: service_healthy
     ports:
@@ -24,7 +22,7 @@ services:
     environment:
       app_env: dev
     networks:
-      - dependence_network
+      - dependence_network_boc
     restart: on-failure:10
 
   flyway-server:
@@ -34,7 +32,7 @@ services:
       dependence_mysql:
         condition: service_healthy
     networks:
-      - dependence_network
+      - dependence_network_boc
 
   dependence_mysql:
     image: "mysql"
@@ -47,7 +45,7 @@ services:
       MYSQL_DATABASE: default@default
       TZ: Asia/Shanghai
     networks:
-      - dependence_network
+      - dependence_network_boc
     volumes:
       - "~/archguard_db_data:/var/lib/mysql"
     healthcheck:
