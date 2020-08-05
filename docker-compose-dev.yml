@@ -3,6 +3,9 @@ services:
   dependence_visual:
     image: "archguard/dependence_visual"
     container_name: dependence_visual
+    extra_hosts:
+      - "code-analysis-addition:127.0.0.1"
+      - "code-scanner:127.0.0.1"
     depends_on:
       - code-analysis-module
     ports:
