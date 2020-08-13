@@ -2,11 +2,11 @@ version: '2.1'
 services:
   dependence_visual:
     image: "archguard/dependence_visual:prod"
-    container_name: dependence_visual
+    container_name: dependence_visual_prod
     depends_on:
-      - code-analysis-addition
-      - code-scanner
-      - code-analysis-module
+      - code-analysis-addition-prod
+      - code-scanner-prod
+      - code-analysis-module-prod
     ports:
       - "11080:80"
       - "11443:443"
@@ -15,7 +15,7 @@ services:
   
   code-analysis-addition:
     image: "archguard/backend_addition:prod"
-    container_name: code-analysis-addition
+    container_name: code-analysis-addition-prod
     depends_on:
       code-scanner:
         condition: service_healthy
@@ -31,7 +31,7 @@ services:
 
   code-scanner:
     image: "archguard/code_scanner:prod"
-    container_name: code-scanner
+    container_name: code-scanner-prod
     mem_limit: 2048m
     memswap_limit: 2048m
     depends_on:
@@ -55,7 +55,7 @@ services:
 
   code-analysis-module:
     image: "archguard/analysis_module:prod"
-    container_name: code-analysis-module
+    container_name: code-analysis-module-prod
     depends_on:
       code-scanner:
         condition: service_healthy
@@ -71,7 +71,7 @@ services:
 
   flyway-server:
     image: "archguard/flyway_server:prod"
-    container_name: flyway-server
+    container_name: flyway-server-prod
     depends_on:
       dependence_mysql:
         condition: service_healthy
@@ -80,7 +80,7 @@ services:
 
   dependence_mysql:
     image: "mysql"
-    container_name: dependence-mysql
+    container_name: dependence-mysql-prod
     command: --default-authentication-plugin=mysql_native_password
     ports:
       - "13308:3306"
