@@ -1,7 +1,7 @@
 version: '2.1'
 services:
   dependence_visual:
-    image: "archguard/dependence_visual"
+    image: "archguard/dependence_visual:prod"
     container_name: dependence_visual
     depends_on:
       - code-analysis-addition
@@ -14,7 +14,7 @@ services:
       - dependence_network_prod
   
   code-analysis-addition:
-    image: "archguard/backend_addition"
+    image: "archguard/backend_addition:prod"
     container_name: code-analysis-addition
     depends_on:
       code-scanner:
@@ -24,13 +24,13 @@ services:
     ports:
         - "18180:8080"
     environment:
-      app_env: local
+      app_env: prod
     networks:
       - dependence_network_prod
     restart: on-failure:10
 
   code-scanner:
-    image: "archguard/code_scanner"
+    image: "archguard/code_scanner:prod"
     container_name: code-scanner
     mem_limit: 2048m
     memswap_limit: 2048m
@@ -42,7 +42,7 @@ services:
     ports:
         - "18182:8080"
     environment:
-      app_env: local
+      app_env: prod
     volumes:
       - "~/.m2:/root/.m2"
     healthcheck:
@@ -54,7 +54,7 @@ services:
     restart: on-failure:10
 
   code-analysis-module:
-    image: "archguard/analysis_module"
+    image: "archguard/analysis_module:prod"
     container_name: code-analysis-module
     depends_on:
       code-scanner:
@@ -64,13 +64,13 @@ services:
     ports:
       - "18183:8080"
     environment:
-      app_env: local
+      app_env: prod
     networks:
       - dependence_network_prod
     restart: on-failure:10
 
   flyway-server:
-    image: "archguard/flyway_server"
+    image: "archguard/flyway_server:prod"
     container_name: flyway-server
     depends_on:
       dependence_mysql:
@@ -91,7 +91,7 @@ services:
     networks:
       - dependence_network_prod
     volumes:
-      - "~/archguard_db_data:/var/lib/mysql"
+      - "~/archguard_db_data_prod:/var/lib/mysql"
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 10s
