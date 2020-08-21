@@ -61,8 +61,7 @@ services:
         condition: service_healthy
       dependence_mysql:
         condition: service_healthy
-      influxdb:
-        condition: service_started
+      - influxdb
     ports:
       - "18083:8080"
     environment:
@@ -143,8 +142,7 @@ services:
     volumes:
       - "~/archguard_grafana_data:/var/lib/grafana"
     depends_on:
-      influxdb:
-        condition: service_healthy
+      - influxdb
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
