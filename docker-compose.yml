@@ -142,7 +142,7 @@ services:
     container_name: grafana
     ports:
       - '3000:3000'
-    user: "472"
+    user: "root"
     volumes:
       - "~/archguard_grafana_data:/var/lib/grafana"
     networks:
