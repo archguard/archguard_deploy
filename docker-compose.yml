@@ -144,8 +144,6 @@ services:
       - '3000:3000'
     networks:
       - dependence_network
-    volumes:
-      - "~/archguard_grafana_data:/var/lib/grafana"
     depends_on:
       influxdb:
         condition: service_healthy
