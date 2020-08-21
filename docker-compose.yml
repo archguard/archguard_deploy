@@ -61,6 +61,8 @@ services:
         condition: service_healthy
       dependence_mysql:
         condition: service_healthy
+      influxdb:
+        condition: service_started
     ports:
       - "18083:8080"
     environment:
@@ -116,6 +118,36 @@ services:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 10s
       retries: 5
+
+  influxdb:
+    image: "influxdb"
+    container_name: influxdb
+    ports:
+      - '8086:8086'
+    networks:
+      - dependence_network
+    volumes:
+      - "~/archguard_influxdb_data:/var/lib/influxdb"
+    environment:
+      - INFLUXDB_DB=db0
+      - INFLUXDB_ADMIN_USER=admin
+      - INFLUXDB_ADMIN_PASSWORD=admin
+
+  grafana:
+    image: "grafana/grafana"
+    container_name: grafana
+    ports:
+      - '3000:3000'
+    networks:
+      - dependence_network
+    volumes:
+      - "~/archguard_grafana_data:/var/lib/grafana"
+    depends_on:
+      influxdb:
+        condition: service_healthy
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
 
 networks:
   dependence_network:
