@@ -4,18 +4,18 @@ services:
     image: "archguard/dependence_visual"
     container_name: dependence_visual
     depends_on:
-      - code-analysis-addition
+      - code-addition
       - code-scanner
-      - code-analysis-module
+      - code-module
     ports:
       - "10080:80"
       - "10443:443"
     networks:
       - dependence_network
   
-  code-analysis-addition:
+  code-addition:
     image: "archguard/backend_addition"
-    container_name: code-analysis-addition
+    container_name: code-addition
     depends_on:
       code-scanner:
         condition: service_healthy
@@ -53,9 +53,9 @@ services:
       - dependence_network
     restart: on-failure:10
 
-  code-analysis-module:
+  code-module:
     image: "archguard/analysis_module"
-    container_name: code-analysis-module
+    container_name: code-module
     depends_on:
       code-scanner:
         condition: service_healthy
