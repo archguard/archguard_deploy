@@ -6,7 +6,7 @@ services:
     depends_on:
       - code-addition
       - code-scanner
-      - code-module
+      - code-analysis
     ports:
       - "10080:80"
       - "10443:443"
@@ -53,9 +53,9 @@ services:
       - dependence_network
     restart: on-failure:10
 
-  code-module:
+  code-analysis:
     image: "archguard/analysis_module"
-    container_name: code-module
+    container_name: code-analysis
     depends_on:
       code-scanner:
         condition: service_healthy
