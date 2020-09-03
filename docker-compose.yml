@@ -32,8 +32,6 @@ services:
   code-scanner:
     image: "archguard/code_scanner"
     container_name: code-scanner
-    mem_limit: 4096m
-    memswap_limit: 4096m
     depends_on:
       dependence_mysql:
         condition: service_healthy
