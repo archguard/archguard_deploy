@@ -43,6 +43,7 @@ services:
       app_env: local
     volumes:
       - "~/.m2:/root/.m2"
+      - "~/.gradle:/root/.gradle"
     healthcheck:
       test: curl -f http://localhost:8080/hello || exit 1
       timeout: 10s
