@@ -103,13 +103,13 @@ services:
     ports:
       - '8186:8086'
     networks:
-      - dependence_network
+      - dependence_network_prod
     healthcheck:
       test: curl -f http://localhost:8086/ping || exit 1
       timeout: 10s
       retries: 5
     volumes:
-      - "~/archguard_influxdb_data:/var/lib/influxdb"
+      - "~/archguard_influxdb_data_prod:/var/lib/influxdb"
     environment:
       - INFLUXDB_DB=db0
       - INFLUXDB_ADMIN_USER=admin
@@ -122,9 +122,9 @@ services:
       - '3100:3000'
     user: "root"
     volumes:
-      - "~/archguard_grafana_data:/var/lib/grafana"
+      - "~/archguard_grafana_data_prod:/var/lib/grafana"
     networks:
-      - dependence_network
+      - dependence_network_prod
     depends_on:
       influxdb:
         condition: service_healthy
