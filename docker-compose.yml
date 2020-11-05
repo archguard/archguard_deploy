@@ -1,4 +1,4 @@
-version: '3'
+version: '2.1'
 services:
   dependence_visual:
     image: "archguard/dependence_visual"
@@ -17,9 +17,7 @@ services:
     image: "archguard/backend_addition"
     container_name: code-addition
     volumes:
-      - type: volume
-        source: zip-files
-        target: /zip-files
+      - "zip-files:/zip-files"
     depends_on:
       code-scanner:
         condition: service_healthy
