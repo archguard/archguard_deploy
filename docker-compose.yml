@@ -50,7 +50,7 @@ services:
     volumes:
       - "~/.m2:/root/.m2"
       - "~/.gradle:/root/.gradle"
-      - zip_files:/zip-files
+      - "zip_files:/zip-files"
     healthcheck:
       test: curl -f http://localhost:8080/hello || exit 1
       timeout: 10s
