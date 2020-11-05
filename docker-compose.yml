@@ -18,7 +18,7 @@ services:
     container_name: code-addition
     volumes:
       - type: volume
-        source: zip_files
+        source: zip-files
         target: /zip-files
     depends_on:
       code-scanner:
@@ -50,7 +50,7 @@ services:
     volumes:
       - "~/.m2:/root/.m2"
       - "~/.gradle:/root/.gradle"
-      - "zip_files:/zip-files"
+      - "zip-files:/zip-files"
     healthcheck:
       test: curl -f http://localhost:8080/hello || exit 1
       timeout: 10s
@@ -161,7 +161,7 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
 
 volumes:
-  zip_files:
+  zip-files:
 
 networks:
   dependence_network:
