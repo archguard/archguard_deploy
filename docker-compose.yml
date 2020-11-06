@@ -29,7 +29,7 @@ services:
       - dependence_network
     restart: on-failure:10
     volumes:
-      - "tmp:/tmp"
+      - "tmp-file:/tmp/zip/files"
 
   code-scanner:
     image: "archguard/code_scanner"
@@ -48,7 +48,7 @@ services:
     volumes:
       - "~/.m2:/root/.m2"
       - "~/.gradle:/root/.gradle"
-      - "tmp:/tmp"
+      - "tmp-file:/tmp/zip/files"
     healthcheck:
       test: curl -f http://localhost:8080/hello || exit 1
       timeout: 10s
@@ -159,7 +159,7 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
 
 volumes:
-  tmp:
+  tmp-file:
 
 networks:
   dependence_network:
