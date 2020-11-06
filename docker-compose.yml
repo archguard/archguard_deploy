@@ -1,4 +1,4 @@
-version: '2.1'
+version: '3'
 services:
   dependence_visual:
     image: "archguard/dependence_visual"
@@ -16,8 +16,6 @@ services:
   code-addition:
     image: "archguard/backend_addition"
     container_name: code-addition
-    volumes:
-      - "zip-files:/tmp/zip-files"
     depends_on:
       code-scanner:
         condition: service_healthy
@@ -30,6 +28,8 @@ services:
     networks:
       - dependence_network
     restart: on-failure:10
+    volumes:
+      - "zip-files:/zip-files"
 
   code-scanner:
     image: "archguard/code_scanner"
@@ -48,7 +48,7 @@ services:
     volumes:
       - "~/.m2:/root/.m2"
       - "~/.gradle:/root/.gradle"
-      - "zip-files:/tmp/zip-files"
+      - "zip-files:/zip-files"
     healthcheck:
       test: curl -f http://localhost:8080/hello || exit 1
       timeout: 10s
