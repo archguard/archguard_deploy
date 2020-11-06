@@ -17,7 +17,7 @@ services:
     image: "archguard/backend_addition"
     container_name: code-addition
     volumes:
-      - "zip-files:/zip-files"
+      - "zip-files:/tmp/zip-files"
     depends_on:
       code-scanner:
         condition: service_healthy
@@ -48,7 +48,7 @@ services:
     volumes:
       - "~/.m2:/root/.m2"
       - "~/.gradle:/root/.gradle"
-      - "zip-files:/zip-files"
+      - "zip-files:/tmp/zip-files"
     healthcheck:
       test: curl -f http://localhost:8080/hello || exit 1
       timeout: 10s
