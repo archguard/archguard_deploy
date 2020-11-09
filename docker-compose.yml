@@ -1,4 +1,4 @@
-version: '3'
+version: '2.1'
 services:
   dependence_visual:
     image: "archguard/dependence_visual"
@@ -48,7 +48,7 @@ services:
     volumes:
       - "~/.m2:/root/.m2"
       - "~/.gradle:/root/.gradle"
-      - "tmp-file:/tmp/zip/files"
+      - "tmp-file:/var/www/zip"
     healthcheck:
       test: curl -f http://localhost:8080/hello || exit 1
       timeout: 10s
